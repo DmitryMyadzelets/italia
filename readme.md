@@ -43,3 +43,38 @@ Notes:
 * The source file may have `cp1252` encoding. You can convert it to
 `utf8` on Linux: `iconv -f cp1252 -t utf8 source > destination`.
 * There are strings containing the new line character `\n`. Some programs delete it when export `xls` file to `csv`. It may affect the keys in JSON objects.
+
+
+### What's in the data? 
+The `data.json` file contain all the data from the source. It's a one-dimensional array of objects, each object has the
+following keys:
+```js
+[
+  "Codice Regione",
+  "Codice dell'Unità territoriale sovracomunale \n(valida a fini statistici)",
+  "Codice Provincia (Storico)(1)",
+  "Progressivo del Comune (2)",
+  "Codice Comune formato alfanumerico",
+  "Denominazione (Italiana e straniera)",
+  "Denominazione in italiano",
+  "Denominazione altra lingua",
+  "Codice Ripartizione Geografica",
+  "Ripartizione geografica",
+  "Denominazione Regione",
+  "Denominazione dell'Unità territoriale sovracomunale \n(valida a fini statistici)",
+  "Tipologia di Unità territoriale sovracomunale",
+  "Flag Comune capoluogo di provincia/città metropolitana/libero consorzio",
+  "Sigla automobilistica",
+  "Codice Comune formato numerico",
+  "Codice Comune numerico con 110 province (dal 2010 al 2016)",
+  "Codice Comune numerico con 107 province (dal 2006 al 2009)",
+  "Codice Comune numerico con 103 province (dal 1995 al 2005)",
+  "Codice Catastale del comune",
+  "Codice NUTS1 2010",
+  "Codice NUTS2 2010 (3)",
+  "Codice NUTS3 2010",
+  "Codice NUTS1 2021",
+  "Codice NUTS2 2021 (3)",
+  "Codice NUTS3 2021"
+]
+```
