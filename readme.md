@@ -31,7 +31,7 @@ the `csv/data.csv` file. Then you can run the commands:
 
 ## Extracted data
 * `json/regions` - Regions' names
-* `json/provinces` - Provinces' names
+* `json/provinces` - Both provinces' and metropolises' names
 
 Edit the code, create your own tool and get data you need!
 
