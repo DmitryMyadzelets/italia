@@ -1,6 +1,8 @@
 # Italy - Administrative Structure
 [Italstat](https://www.istat.it/) - Unità amministrative territoriali: comuni, città metropolitane, province e regioni
 
+The latest data from June 30, 2021.
+
 ## Intro
 Italy is subdivided into regions. Each region is subdivided into provinces and
 metropolises. Finaly, the later ones are subddivided into communes. I.e.:
