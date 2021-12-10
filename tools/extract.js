@@ -12,9 +12,9 @@ const config = {
 // const unique = (v, i, a) => a.indexOf(v) == i
 // const byKey = key => arr => arr.map(obj => obj[key]).filter(unique)
 const byKey = key => arr => [... new Set(arr.map(obj => obj[key]))]
+
 const getRegions= byKey("Denominazione Regione")
 const getProvinces = byKey("Denominazione dell'Unità territoriale sovracomunale \n(valida a fini statistici)")
-// Two-letter encodings for provinces and metropolies
 const getCodes = byKey("Sigla automobilistica")
 
 async function saveAndLog(fname, data) {
