@@ -21,7 +21,7 @@ In dicember 2021 the amount of entities is following:
 ```
 
 The administrative structure is constantly evolving. This project aims to
-create tools to extract some usefull information from the source data.
+create tools to extract some usefull information in `JSON` format from the source data.
 
 ## Tools
 Assume you have downloaded `zip` file, then extracted and (optionally) decoded `csv` file to
