@@ -23,14 +23,15 @@ create tools to extract some usefull information from the source data.
 
 ## Tools
 Assume you have downloaded, extracted and (optionally) decoded `csv` file to
-the `csv/data.csv` file.
-* `node tools/convert` - Convert `csv/data.csv` file to `json/data.json` file
+the `csv/data.csv` file. Then you can run commands:
+* `node tools/convert` - Convert `csv/data.csv` file to `json/data.json`
 * `node tools/extract` - Extract some JSON data (see below)
 
 ## Extracted data
-* `json/data` - All the data from original `csv` file in JSON format
 * `json/regions` - Regions' names
 * `json/provinces` - Provinces' names
+
+Edit the code, create your own tool and get data you need!
 
 ## Data Source
 The original data were downloaded [from
@@ -38,8 +39,5 @@ Istat](https://www.istat.it/it/archivio/6789) as a [zip file](https://www.istat.
 
 Notes:
 * The source file may have `cp1252` encoding. You can convert it to
-`utf8`:
-```bash
-iconv -f cp1252 -t utf8 source > destination
-```
-* There are strings containkng the new line symbol. Some programs delete ii when you export `xls` file to `csv`.
+`utf8`: `iconv -f cp1252 -t utf8 source > destination`.
+* There are strings containing the new line character `\n`. Some programs delete ii when you export `xls` file to `csv`. It may affect the keys in JSON objects.
