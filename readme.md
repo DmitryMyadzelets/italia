@@ -24,8 +24,8 @@ The administrative structure is constantly evolving. This project aims to
 create tools to extract some usefull information from the source data.
 
 ## Tools
-Assume you have downloaded, extracted and (optionally) decoded `csv` file to
-the `csv/data.csv` file. Then you can run commands:
+Assume you have downloaded `zip` file, then extracted and (optionally) decoded `csv` file to
+the `csv/data.csv` file. Then you can run the commands:
 * `node tools/convert` - Convert `csv/data.csv` file to `json/data.json`
 * `node tools/extract` - Extract some JSON data (see below)
 
