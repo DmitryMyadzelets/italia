@@ -42,4 +42,4 @@ Istat](https://www.istat.it/it/archivio/6789) as a [zip file](https://www.istat.
 Notes:
 * The source file may have `cp1252` encoding. You can convert it to
 `utf8` on Linux: `iconv -f cp1252 -t utf8 source > destination`.
-* There are strings containing the new line character `\n`. Some programs delete ii when you export `xls` file to `csv`. It may affect the keys in JSON objects.
+* There are strings containing the new line character `\n`. Some programs delete it when export `xls` file to `csv`. It may affect the keys in JSON objects.
