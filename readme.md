@@ -46,35 +46,34 @@ Notes:
 
 
 ### What's in the data? 
-The `data.json` file contain all the data from the source. It's a one-dimensional array of objects, each object has the
-following keys:
+The `data.json` file contain all the data from the source. It's a one-dimensional array of objects, e.g.:
 ```js
-[
-  "Codice Regione",
-  "Codice dell'Unità territoriale sovracomunale \n(valida a fini statistici)",
-  "Codice Provincia (Storico)(1)",
-  "Progressivo del Comune (2)",
-  "Codice Comune formato alfanumerico",
-  "Denominazione (Italiana e straniera)",
-  "Denominazione in italiano",
-  "Denominazione altra lingua",
-  "Codice Ripartizione Geografica",
-  "Ripartizione geografica",
-  "Denominazione Regione",
-  "Denominazione dell'Unità territoriale sovracomunale \n(valida a fini statistici)",
-  "Tipologia di Unità territoriale sovracomunale",
-  "Flag Comune capoluogo di provincia/città metropolitana/libero consorzio",
-  "Sigla automobilistica",
-  "Codice Comune formato numerico",
-  "Codice Comune numerico con 110 province (dal 2010 al 2016)",
-  "Codice Comune numerico con 107 province (dal 2006 al 2009)",
-  "Codice Comune numerico con 103 province (dal 1995 al 2005)",
-  "Codice Catastale del comune",
-  "Codice NUTS1 2010",
-  "Codice NUTS2 2010 (3)",
-  "Codice NUTS3 2010",
-  "Codice NUTS1 2021",
-  "Codice NUTS2 2021 (3)",
-  "Codice NUTS3 2021"
-]
+{
+  "Codice Regione": "01",
+  "Codice dell'Unità territoriale sovracomunale \n(valida a fini statistici)": "201",
+  "Codice Provincia (Storico)(1)": "001",
+  "Progressivo del Comune (2)": "001",
+  "Codice Comune formato alfanumerico": "001001",
+  "Denominazione (Italiana e straniera)": "Agliè",
+  "Denominazione in italiano": "Agliè",
+  "Denominazione altra lingua": "",
+  "Codice Ripartizione Geografica": "1",
+  "Ripartizione geografica": "Nord-ovest",
+  "Denominazione Regione": "Piemonte",
+  "Denominazione dell'Unità territoriale sovracomunale \n(valida a fini statistici)": "Torino",
+  "Tipologia di Unità territoriale sovracomunale": "3",
+  "Flag Comune capoluogo di provincia/città metropolitana/libero consorzio": "0",
+  "Sigla automobilistica": "TO",
+  "Codice Comune formato numerico": "1001",
+  "Codice Comune numerico con 110 province (dal 2010 al 2016)": "1001",
+  "Codice Comune numerico con 107 province (dal 2006 al 2009)": "1001",
+  "Codice Comune numerico con 103 province (dal 1995 al 2005)": "1001",
+  "Codice Catastale del comune": "A074",
+  "Codice NUTS1 2010": "ITC",
+  "Codice NUTS2 2010 (3)": "ITC1",
+  "Codice NUTS3 2010": "ITC11",
+  "Codice NUTS1 2021": "ITC",
+  "Codice NUTS2 2021 (3)": "ITC1",
+  "Codice NUTS3 2021": "ITC11"
+}
 ```
