@@ -19,6 +19,5 @@ const options = {
   const array = await csvtojson(options).fromFile(src)
 
   await save(dst, array)
-
-  console.log('Done! Data saved to '+ dst)
+  console.log(`Saved ${ dst }`)
 })()  
