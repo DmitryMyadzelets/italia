@@ -46,7 +46,7 @@ Notes:
 
 
 ### What's in the data? 
-The `data.json` file contain all the data from the source. It's a one-dimensional array of objects, e.g.:
+The `data.json` file contains all the data from the source. It's an one-dimensional array of objects as e.g.:
 ```js
 {
   "Codice Regione": "01",
