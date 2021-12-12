@@ -32,6 +32,7 @@ the `csv/data.csv` file. Then you can run the commands:
 ## Extracted data
 * `json/regions` - Regions' names
 * `json/provinces` - Both provinces' and metropolises' names
+* `json/italy` - Names of the regions, provinces and comunes in one object
 
 Edit the code, create your own tool and get data you need!
 
