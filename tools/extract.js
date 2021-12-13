@@ -14,28 +14,28 @@ const config = {
 // const byKey = key => arr => arr.map(obj => obj[key]).filter(unique)
 const byKey = key => arr => [... new Set(arr.map(obj => obj[key]))]
 
-const getRegions= byKey("Denominazione Regione")
-const getProvinces = byKey("Denominazione dell'Unità territoriale sovracomunale \n(valida a fini statistici)")
-const getCodes = byKey("Sigla automobilistica")
+const regionKey = "Denominazione Regione"
+const provinceKey = "Denominazione dell'Unità territoriale sovracomunale \n(valida a fini statistici)"
+const comuneKey = "Denominazione in italiano"
+const getRegions= byKey(regionKey)
+const getProvinces = byKey(provinceKey)
 
 async function saveAndLog(fname, data) {
   await save(fname, data)
   console.log(`Saved ${ fname }`)
 }
 
-function getItaly(data) {
-  const italy = {}
-  data.forEach(o => {
-    const region = o["Denominazione Regione"]
-    const province = o["Denominazione dell'Unità territoriale sovracomunale \n(valida a fini statistici)"]
-    const comune = o["Denominazione in italiano"]
+const child = (parent, key) => parent[key] || (parent[key] = {})
 
-    const a = italy[region] || (italy[region] = {})
-    const b = a[province] || (a[province] = {})
-    const c = b[comune] || (b[comune] = {})
-  })
+const getItaly = data => data.reduce((italy, o) => {
+  const region = o[regionKey]
+  const province = o[provinceKey]
+  const comune = o[comuneKey]
+
+  child(child(child(italy, region), province), comune)
+
   return italy
-}
+}, {})
 
 ;(async () => {
   const data = await load(config.src)
