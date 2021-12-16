@@ -1,0 +1,12 @@
+{
+  "name": "scraper",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "d3-selection": "^3.0.0",
+    "node-html-parser": "^5.1.0"
+  }
+}
