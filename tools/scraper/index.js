@@ -22,17 +22,17 @@ async function getCodes(path) {
       .selectAll('td')
       .each(function (ignore, i) {
         let el = select(this)
-        let a = el.select('a')
-        if (!a.empty()) {
-          el = a
-        }
+        const a = el.select('a')
+        if (!a.empty()) { el = a }
+        let strong = el.select('strong')
+        if (!strong.empty()) { el = strong }
         switch (i) {
           case 0:
             name = el.html()
             break
           case 1:
             path = a.attr('href')
-            codes = a.html()
+            codes = el.html()
             break
         }
       })
@@ -42,19 +42,29 @@ async function getCodes(path) {
   return data
 }
 
-const regions = await getCodes(path)
 
-await Promise.all(regions.map(async region => {
+async function getComunes(province) {
+  const comunes = await getCodes(province.path)
+  province.comunes = comunes
+}
+
+async function getProvinces(region) {
   const provinces = await getCodes(region.path)
   region.provinces =  provinces
-  delete region.path
+  //await Promise.all(provinces.map(getProvince))
+}
 
-  await Promise.all(provinces.map(async province => {
-    const comunes = await getCodes(province.path)
-    comunes.forEach(comune => delete comune.path)
-    province.comunes = comunes
-    delete province.path
-  }))
-}))
+const regions = await getCodes(path)
+await Promise.all(regions.map(getProvinces))
+await Promise.all(regions.map(({ provinces }) => Promise.all(provinces.map(getComunes))))
+
+const noPath = o => delete o.path
+regions.forEach(region => {
+  noPath(region)
+  region.provinces.forEach(province => {
+    noPath(province)
+    province.comunes.forEach(noPath)
+  })
+})
 
 console.log(JSON.stringify(regions, null, 2))
