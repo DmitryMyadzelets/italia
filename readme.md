@@ -28,11 +28,13 @@ Assume you have downloaded `zip` file, then extracted and (optionally) decoded `
 the `csv/data.csv` file. Then you can run the commands:
 * `node tools/convert` - Convert `csv/data.csv` file to `json/data.json`
 * `node tools/extract` - Extract some JSON data (see below)
+* `node tools/scraper` - Web scraper for postal codes
 
 ## Extracted data
 * `json/regions` - Regions' names
 * `json/provinces` - Both provinces' and metropolises' names
 * `json/italy` - Names of the regions, provinces and comunes in one object
+* `json/codes` - Postal codes (CAP) of regions, provinces and comunes
 
 Edit the code, create your own tool and get data you need!
 
