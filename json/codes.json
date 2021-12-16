@@ -89,7 +89,7 @@
           },
           {
             "name": "Chieti",
-            "codes": "<strong>66100</strong>"
+            "codes": "66100"
           },
           {
             "name": "Civitaluparella",
@@ -415,7 +415,7 @@
           },
           {
             "name": "L'Aquila",
-            "codes": "<strong>67100</strong>"
+            "codes": "67100"
           },
           {
             "name": "Lecce nei Marsi",
@@ -703,7 +703,7 @@
           },
           {
             "name": "Matera",
-            "codes": "<strong>75100</strong>"
+            "codes": "75100"
           },
           {
             "name": "Miglionico",
@@ -981,7 +981,7 @@
           },
           {
             "name": "Catanzaro",
-            "codes": "<strong>88100</strong>"
+            "codes": "88100"
           },
           {
             "name": "Cenadi",
@@ -1275,7 +1275,7 @@
           },
           {
             "name": "Cosenza",
-            "codes": "<strong>87100</strong>"
+            "codes": "87100"
           },
           {
             "name": "Cropalati",
@@ -1453,7 +1453,7 @@
           },
           {
             "name": "Crotone",
-            "codes": "<strong>88900</strong>"
+            "codes": "88900"
           },
           {
             "name": "Crucoli",
@@ -1821,7 +1821,7 @@
           },
           {
             "name": "Avellino",
-            "codes": "<strong>83100</strong>"
+            "codes": "83100"
           },
           {
             "name": "Bagnoli Irpino",
@@ -2067,7 +2067,7 @@
           },
           {
             "name": "Benevento",
-            "codes": "<strong>82100</strong>"
+            "codes": "82100"
           },
           {
             "name": "Bonea",
@@ -2289,7 +2289,7 @@
           },
           {
             "name": "Caserta",
-            "codes": "<strong>81100</strong>"
+            "codes": "81100"
           },
           {
             "name": "Castel Campagnano",
@@ -3091,7 +3091,7 @@
           },
           {
             "name": "Ferrara",
-            "codes": "<strong>44100</strong>"
+            "codes": "44100"
           },
           {
             "name": "Fiscaglia",
@@ -3279,7 +3279,7 @@
           },
           {
             "name": "Modena",
-            "codes": "<strong>41100</strong>"
+            "codes": "41100"
           },
           {
             "name": "Montecreto",
@@ -3737,7 +3737,7 @@
           },
           {
             "name": "Gorizia",
-            "codes": "<strong>34170</strong>"
+            "codes": "34170"
           },
           {
             "name": "Gradisca d'Isonzo",
@@ -4335,7 +4335,7 @@
           },
           {
             "name": "Frosinone",
-            "codes": "<strong>03100</strong>"
+            "codes": "03100"
           },
           {
             "name": "Fumone",
@@ -4417,7 +4417,7 @@
           },
           {
             "name": "Latina",
-            "codes": "<strong>04100</strong>"
+            "codes": "04100"
           },
           {
             "name": "Lenola",
@@ -5245,7 +5245,7 @@
           },
           {
             "name": "Imperia",
-            "codes": "<strong>18100</strong>"
+            "codes": "18100"
           },
           {
             "name": "Isolabona",
@@ -6546,7 +6546,7 @@
           },
           {
             "name": "Cremona",
-            "codes": "<strong>26100</strong>"
+            "codes": "26100"
           },
           {
             "name": "Cremosano",
@@ -6812,7 +6812,7 @@
           },
           {
             "name": "Lecco",
-            "codes": "<strong>23900</strong>"
+            "codes": "23900"
           },
           {
             "name": "Lierna",
@@ -6954,7 +6954,7 @@
           },
           {
             "name": "Lodi",
-            "codes": "<strong>26900</strong>"
+            "codes": "26900"
           }
         ]
       },
@@ -7084,7 +7084,7 @@
           },
           {
             "name": "Mantova",
-            "codes": "<strong>46100</strong>"
+            "codes": "46100"
           },
           {
             "name": "Marcaria",
@@ -8476,7 +8476,7 @@
           },
           {
             "name": "Ascoli Piceno",
-            "codes": "<strong>63100</strong>"
+            "codes": "63100"
           },
           {
             "name": "Carassai",
@@ -8554,7 +8554,7 @@
           },
           {
             "name": "Fermo",
-            "codes": "<strong>63023</strong>"
+            "codes": "63023"
           },
           {
             "name": "Francavilla d'Ete",
@@ -8708,7 +8708,7 @@
           },
           {
             "name": "Macerata",
-            "codes": "<strong>62100</strong>"
+            "codes": "62100"
           },
           {
             "name": "Matelica",
@@ -8898,7 +8898,7 @@
           },
           {
             "name": "Campobasso",
-            "codes": "<strong>86100</strong>"
+            "codes": "86100"
           },
           {
             "name": "Campochiaro",
@@ -9140,7 +9140,7 @@
           },
           {
             "name": "Isernia",
-            "codes": "<strong>86170</strong>"
+            "codes": "86170"
           },
           {
             "name": "Longano",
@@ -9176,7 +9176,7 @@
           },
           {
             "name": "Alessandria",
-            "codes": "<strong>15100</strong>"
+            "codes": "15100"
           },
           {
             "name": "Alfiano Natta",
@@ -9808,7 +9808,7 @@
           },
           {
             "name": "Biella",
-            "codes": "<strong>13900</strong>"
+            "codes": "13900"
           },
           {
             "name": "Bioglio",
@@ -10274,7 +10274,7 @@
           },
           {
             "name": "Cuneo",
-            "codes": "<strong>12100</strong>"
+            "codes": "12100"
           },
           {
             "name": "Demonte",
@@ -11750,7 +11750,7 @@
         "comunes": [
           {
             "name": "Brindisi",
-            "codes": "<strong>72100</strong>"
+            "codes": "72100"
           },
           {
             "name": "Carovigno",
@@ -11888,7 +11888,7 @@
           },
           {
             "name": "Foggia",
-            "codes": "<strong>71100</strong>"
+            "codes": "71100"
           },
           {
             "name": "Ischitella",
@@ -12066,7 +12066,7 @@
           },
           {
             "name": "Lecce",
-            "codes": "<strong>73100</strong>"
+            "codes": "73100"
           },
           {
             "name": "Lequile",
@@ -13010,7 +13010,7 @@
         "comunes": [
           {
             "name": "Agrigento",
-            "codes": "<strong>92100</strong>"
+            "codes": "92100"
           },
           {
             "name": "Alessandria della Rocca",
@@ -13116,7 +13116,7 @@
           },
           {
             "name": "Caltanissetta",
-            "codes": "<strong>93100</strong>"
+            "codes": "93100"
           },
           {
             "name": "Campofranco",
@@ -13308,7 +13308,7 @@
           },
           {
             "name": "Enna",
-            "codes": "<strong>94100</strong>"
+            "codes": "94100"
           },
           {
             "name": "Gagliano Castelferrato",
@@ -13641,7 +13641,7 @@
           },
           {
             "name": "Arezzo",
-            "codes": "<strong>52100</strong>"
+            "codes": "52100"
           },
           {
             "name": "Badia Tedalda",
@@ -13865,7 +13865,7 @@
           },
           {
             "name": "Grosseto",
-            "codes": "<strong>58100</strong>"
+            "codes": "58100"
           },
           {
             "name": "Isola del Giglio",
@@ -14001,7 +14001,7 @@
           },
           {
             "name": "Lucca",
-            "codes": "<strong>55100</strong>"
+            "codes": "55100"
           },
           {
             "name": "Massarosa",
@@ -15415,7 +15415,7 @@
           },
           {
             "name": "Belluno",
-            "codes": "<strong>32100</strong>"
+            "codes": "32100"
           },
           {
             "name": "Borca di Cadore",
