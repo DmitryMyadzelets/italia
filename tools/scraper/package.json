@@ -7,5 +7,8 @@
   },
   "dependencies": {
     "htmlparser2": "^7.2.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }
