@@ -80,3 +80,6 @@ The `data.json` file contains all the data from the source. It's an one-dimensio
   "Codice NUTS3 2021": "ITC11"
 }
 ```
+
+Notes:
+* Some complicated names of regions are esteblished in the [Constiution, article 116](https://www.senato.it/istituzione/la-costituzione/parte-ii/titolo-v/articolo-116).
