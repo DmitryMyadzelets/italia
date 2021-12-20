@@ -1,5 +1,5 @@
-const { readFile } = require("fs/promises")
+import { readFile } from 'fs/promises'
 
-const load = fname => readFile(fname, { encoding: "utf8" }).then(JSON.parse)
+const load = fname => readFile(fname, { encoding: 'utf8' }).then(JSON.parse)
 
-module.exports = load
+export default load
