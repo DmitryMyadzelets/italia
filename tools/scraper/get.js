@@ -1,9 +1,9 @@
-import http from 'https'
+import { request } from 'https'
 // The 'node-html-parser' has limited capabilites, not all d3 methods would work
 
 function get (host, path) {
   return new Promise((resolve, reject) => {
-    http.request({
+    request({
       host: host,
       path: path
       //headers: { 'Content-Type': 'application/json' }
