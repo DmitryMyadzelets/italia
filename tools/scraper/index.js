@@ -1,11 +1,17 @@
-//import { select } from 'd3-selection'
-// import { parse, valid } from 'node-html-parser'
 import { parseDocument as parse } from 'htmlparser2'
 import { getElementsByTagName as select, textContent } from 'domutils'
-import get from './get.js'
+
+import { fileURLToPath } from 'url'
+import { dirname, resolve } from 'path'
+import cached from './get-cached.js'
+
 import config from './.config.js'
 const { host, path } = config
 
+const get = cached({
+  debug: false,
+  dir: resolve(dirname(fileURLToPath(import.meta.url)), './.cache')
+})
 
 // Helper
 // Traverse all children till no tags left. Returns the last element
@@ -16,44 +22,69 @@ const skipTags = e => {
 
 // Helper
 // Returns true if the element has given class
-const classed = className => e => e.attribs.class.includes(className)
+const classed = className => e => e.attribs.class && e.attribs.class.includes(className)
+// Returns true if the element has givin id
+const id = s => e => e.attribs.id == s
 
-// All pages we need on the host are formatted almost the same way.
-// We use one function to parse it
-async function getCodes(path) {
+async function getCodes(path, tableClass) {
   const data = []
 
   let page = await get(host, path)
   page = parse(page)
 
-  const tables = select('table', page).filter(classed('table-bordered'))
+  const divs = select('div', page).filter(id('jk'))
+  const tables = select('table', page).filter(tableClass)
 
-  select('tr', select('tbody', tables))
+  select('tr', tables)
     .map(tr => select('td', tr))
-    .filter(tds => tds.length == 2)
-    .forEach(tds => {
-      const name = textContent(skipTags(tds[0]))
-      const codes = textContent(skipTags(tds[1]))
-      const path = select('a', tds[1]).map(a => a.attribs.href)[0]
-      data.push({ name, codes, path })
+    .filter(tds => tds.length > 0)
+    .map(tds => select('a', tds[0])[0])
+    .filter(a => !!a)
+    .forEach(a => {
+      const name = textContent(skipTags(a))
+      const path = a.attribs.href
+      data.push({ name, path })
     })
 
   return data
 }
 
-async function getComunes(province) {
-  const comunes = await getCodes(province.path)
-  province.comunes = comunes
-}
-
 async function getProvinces(region) {
-  const provinces = await getCodes(region.path)
+  const provinces = await getCodes(region.path, classed('ut'))
   region.provinces =  provinces
 }
 
-const regions = await getCodes(path)
+async function getComunes(province) {
+  const comunes = await getCodes(province.path, classed('at'))
+  province.comunes = comunes
+}
+
+
+let regions = await getCodes(path, classed('vm'))
+regions = regions.filter(region => region.name == 'Sardegna')
 await Promise.all(regions.map(getProvinces))
 await Promise.all(regions.map(({ provinces }) => Promise.all(provinces.map(getComunes))))
+
+// Remove unnecessary words in names
+;(() => {
+  const fix = province => province.name = province.name
+    .replace('Città Metropolitana di ', '')
+    .replace('Provincia di ', '')
+    .replace('Provincia del ', '')
+  regions.forEach(region => region.provinces.forEach(fix))
+})()
+
+// Fix names in upper case only
+;(() => {
+  const fix = comune => {
+    const name = comune.name
+    if (name == name.toUpperCase()) {
+      let fixed = name[0] + name.slice(1).toLowerCase()
+      comune.name = fixed
+    }
+  }
+  regions.forEach(region => region.provinces.forEach(province => province.comunes.forEach(fix)))
+})()
 
 // Remove url
 const noPath = o => delete o.path
