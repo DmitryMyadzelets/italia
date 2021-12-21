@@ -34,7 +34,7 @@ the `csv/data.csv` file. Then you can run the commands:
 * `json/regions` - Regions' names
 * `json/provinces` - Both provinces' and metropolises' names
 * `json/italy` - Names of the regions, provinces and comunes in one object
-* `json/codes` - Postal codes (CAP) of regions, provinces and comunes
+* `json/postcodes` - Postal codes (CAP)
 
 Edit the code, create your own tool and get data you need!
 
