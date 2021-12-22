@@ -6,6 +6,9 @@ import load from '../tools/load.js'
 // Helpers:
 // Check if the value in array is unique
 const unique = (v, i, a) => a.indexOf(v) == i
+// Sorting by name function
+const byNames = (a, b) => a.name.localeCompare(b.name)
+const name = ({ name }) => name
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 const json = fname => path.resolve(dirname, '../json', fname)
@@ -22,107 +25,48 @@ equal(true, provinces.every(unique))
 // italy.json
 //
 const italy = await load(json('italy.json'))
-// Make a helper object with structure equal to the postcodes.json
-let helper
-;(() => {
-  const compare = (a, b) => a.localeCompare(b)
-  const convert = arr => arr.sort(compare).map(name => ({ name }))
-
-  const regions = convert(Object.keys(italy))
-
-  regions.forEach(region => {
-    const provinces = convert(Object.keys(italy[region.name]))
-    region.provinces = provinces
-
-    provinces.forEach(province => {
-      const comunes = convert(Object.keys(italy[region.name][province.name]))
-      province.comunes = comunes
-    })
-  })
-
-  helper = regions
-})()
-//
-// We check if it's consistent with the reference data
-// Make helper arrays
-;(() => {
-  const regions = 
-    Object.keys(italy)
-    .sort()
-
-  const provinces = 
-    Object.values(italy)
-    .map(Object.keys)
-    .reduce((arr, v) => arr.push(...v) && arr, [])
-    .sort()
-
-  const comunes = 
-    Object.values(italy)
-    .map(Object.values)
-    .reduce((arr, v) => arr.push(...v
-      .map(Object.keys)
-      .reduce((arr, v) => arr.push(...v) && arr, [])) && arr, [])
-    .sort()
-
-  Object.assign(italy, { regions, provinces, comunes })
-})()
-// Amount of regions is the same
-equal(regions.length, italy.regions.length)
-// Names of regions are equal
-italy.regions.forEach((name, i) => equal(name, regions[i]))
-// Amount of provinces is the same
-equal(provinces.length, italy.provinces.length)
-// Names of provinces are equal
-italy.provinces.forEach((name, i) => equal(name, provinces[i]))
-
-console.log('Regions, total:', regions.length)
-console.log('Provinces, total:', provinces.length)
-console.log('Comunes, total:', italy.comunes.length)
+// Create helper objects
+const comunesInProvince = province => province.comunes
+const comunesInRegion = region => region.provinces.reduce((arr, province) => arr.push(...comunesInProvince(province)) && arr, [])
+italy.forEach(region => region.comunes = comunesInRegion(region))
+// Names of comunes are unique across every region
+italy.forEach(region => equal(region.comunes.map(name).every(unique), true))
+// Names of comunes aren't unique across italy
+equal(italy.reduce((arr, { comunes }) => arr.push(...comunes) && arr, []).map(name).every(unique), false)
+// Count the entities
+const nRegions = Object.keys(italy).length
+const nProvinces = italy.reduce((sum, region) => sum + region.provinces.length, 0)
+const nComunes = italy.reduce((sum, region) => sum + region.comunes.length, 0)
+equal(regions.length, nRegions)
+equal(provinces.length, nProvinces)
+// Report
+console.log('Regions, total:', nRegions)
+console.log('Provinces, total:', nProvinces)
+console.log('Comunes, total:', nComunes)
 
 // codes.json
 //
 const codes = await load(json('postcodes.json'))
+// Helper links
+codes.forEach(region => region.comunes = comunesInRegion(region))
 // Amount of regions is the same
 equal(regions.length, codes.length)
-// Names of regions are equal
-codes.forEach((region, i) => equal(region.name, regions[i]))
-
-// codes - comunes
-;(() => {
-  // Amount of comunes is equal
-  const inProvince = province => province.comunes.length
-  const inRegion = region => region.provinces.reduce((sum, province) => sum + inProvince(province), 0)
-  const nComunes = codes.reduce((sum, region) => sum += inRegion(region), 0)
-  // Comunes per regions
-  const perRegions = codes
-    .map(region => ({name: region.name, comunes: inRegion(region)}))
-    .sort((a, b) => a.name.localeCompare(b.name))
-  //
-  // equal(italy.comunes.length, nComunes) // It's not equal! 7904 vs 8143
-
-  // Every actual comune has a postcode
-  const reductor = f => (arr, o) => arr.push(...f(o)) && arr
-  const comunesNames = o => o.comunes.map(o => o.name)
-  const namesInRegion = o => o.provinces.reduce(reductor(comunesNames), [])
-  // ... Names of comunes are not unique accross Italy, but per region they are
-  const convert = region => ({name: region.name, comunes: namesInRegion(region)})
-  const namesPerRegion = codes.map(convert)
-  namesPerRegion.forEach(region => equal(true, region.comunes.every(unique)))
-  // ... Names of comunes of the actual communes
-  const helperComunes = helper.map(convert)
-  helperComunes.forEach(region => {
-    const sameRegion = namesPerRegion.find(({ name }) => name == region.name)
-    equal(typeof sameRegion, 'object')
-    region.comunes.forEach(name => {
-      try {
-        equal(sameRegion.comunes.find(v => v == name), name)
-      } catch (e) {
-        console.error('Error for:', region)
-        throw e
-      }
-    })
-  })
-})()
+// Amount of comunes is equal
+const nComunesCodes = codes.reduce((sum, region) => sum + region.comunes.length, 0)
+// equal(nComunesCodes, nComunes) // It's not equal! 8143 vs 7904
+codes.forEach((region, i) => {
+  try {
+    // Names of regions are equal
+    codes.forEach((region, i) => equal(region.name, italy[i].name))
+    // Amount of comunes is equal
+    // equal(region.comunes.length, italy[i].comunes.length) // It's not true
+    // for 13 of 20 regions!
+  } catch (e) {
+    const { name } = region
+    // console.error('Error for:', { name }, `${region.comunes.length} vs ${italy[i].comunes.length}`)
+    throw e
+  }
+})
 
 // codes - provinces
 ;(() => {
@@ -141,6 +85,3 @@ codes.forEach((region, i) => equal(region.name, regions[i]))
   // Amount of provinces is the same
   equal(provinces.length, names.length)
 })()
-
-const countProvinces = (sum, region) => sum + region.provinces.length
-equal(provinces.length, codes.reduce(countProvinces, 0))
