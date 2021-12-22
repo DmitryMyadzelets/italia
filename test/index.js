@@ -68,7 +68,7 @@ codes.forEach((region, i) => {
   }
 })
 
-// codes - provinces
+// codes.json - provinces
 ;(() => {
   // Add new regions
   const sardegna = codes.find(region => region.name == 'Sardegna')
@@ -76,12 +76,13 @@ codes.forEach((region, i) => {
   // Remove  suppressed provinces
   const suppressed = ['Carbonia-Iglesias', 'Medio Campidano', 'Ogliastra', 'Olbia-Tempio']
   sardegna.provinces = sardegna.provinces.filter(({ name }) => suppressed.indexOf(name) < 0)
-  //
-  const toProvinces = (provinces, region) => provinces.push(...region.provinces.map(o => o.name)) && provinces
-  const names = codes.reduce(toProvinces, []).sort()
-
+  // Make array of provinces' names
+  const names = codes
+    .map(({ provinces })=> provinces.map(name))
+    .reduce((arr, names) => arr.push(...names) && arr, [])
+    .sort(byName)
   // Names of provinces is equal
-  names.forEach((name, i) => equal(name, provinces[i]))
+  provinces.forEach((name, i) => equal(name, names[i]))
   // Amount of provinces is the same
   equal(provinces.length, names.length)
 })()
