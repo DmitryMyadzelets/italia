@@ -424,7 +424,7 @@
         ]
       },
       {
-        "name": "Provincia dell'Aquila",
+        "name": "L'Aquila",
         "comunes": [
           {
             "name": "Acciano",
@@ -10002,7 +10002,7 @@
         ]
       },
       {
-        "name": "Provincia della Spezia",
+        "name": "La Spezia",
         "comunes": [
           {
             "name": "Ameglia",
@@ -28130,7 +28130,7 @@
     "name": "Trentino-Alto Adige",
     "provinces": [
       {
-        "name": "Provincia autonoma di Bolzano",
+        "name": "Bolzano",
         "comunes": [
           {
             "name": "Aldino",
@@ -28599,7 +28599,7 @@
         ]
       },
       {
-        "name": "Provincia autonoma di Trento",
+        "name": "Trento",
         "comunes": [
           {
             "name": "Ala",
