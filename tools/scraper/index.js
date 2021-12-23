@@ -1,3 +1,4 @@
+import { deepEqual as equal } from 'assert'
 import { parseDocument as parse } from 'htmlparser2'
 import { getElementsByTagName as select, textContent } from 'domutils'
 
@@ -10,6 +11,7 @@ const { host, path } = config
 
 const get = cached({
   debug: false,
+  tout: true,
   dir: resolve(dirname(fileURLToPath(import.meta.url)), './.cache')
 })
 
@@ -49,9 +51,25 @@ async function getCodes(path, tableClass) {
   return data
 }
 
+async function getCap(comune) {
+  let page = await get(host, comune.path)
+  page = parse(page)
+  const tables = select('table', page).filter(classed('uj'))
+
+  const codes = select('tr', tables)
+    .map(tr => select('td', tr))
+    .filter(tds => tds.length >= 2)
+    .filter(tds => textContent(skipTags(tds[0])) == 'CAP')
+    .map(tds => textContent(skipTags(tds[1])))[0]
+
+  equal(typeof codes, 'string')
+  equal(codes.length > 0, true)
+  comune.codes = codes
+}
+
 async function getProvinces(region) {
   const provinces = await getCodes(region.path, classed('ut'))
-  region.provinces =  provinces
+  region.provinces = provinces
 }
 
 async function getComunes(province) {
@@ -59,11 +77,23 @@ async function getComunes(province) {
   province.comunes = comunes
 }
 
-
-let regions = await getCodes(path, classed('vm'))
-regions = regions.filter(region => region.name == 'Sardegna')
+const regions = await getCodes(path, classed('vm'))
+// regions = regions.filter(region => region.name == 'Sardegna')
 await Promise.all(regions.map(getProvinces))
-await Promise.all(regions.map(({ provinces }) => Promise.all(provinces.map(getComunes))))
+//await Promise.all(regions.map(({ provinces }) => Promise.all(provinces.map(getComunes))))
+await (async () => {
+  for (let region of regions) {
+    for (let province of region.provinces) {
+      await getComunes(province)
+      for (let comune of province.comunes) {
+        // Comunes have relative paths, so we change path to absolute
+        // Without slash it redirects to the page with slash, so we add it
+        comune.path = resolve(province.path, comune.path) + '/'
+        await getCap(comune)
+      }
+    }
+  }
+})()
 
 // Remove unnecessary words in names
 ;(() => {
@@ -76,10 +106,15 @@ await Promise.all(regions.map(({ provinces }) => Promise.all(provinces.map(getCo
 
 // Fix names in upper case only
 ;(() => {
+  const fixName = name => name
+    .split(' ')
+    .map(name => name[0] + name.slice(1).toLowerCase())
+    .join(' ')
+
   const fix = comune => {
     const name = comune.name
     if (name == name.toUpperCase()) {
-      let fixed = name[0] + name.slice(1).toLowerCase()
+      const fixed = fixName(name)
       comune.name = fixed
     }
   }
