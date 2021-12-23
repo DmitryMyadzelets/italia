@@ -6742,7 +6742,7 @@
         ]
       },
       {
-        "name": "Reggio Emilia",
+        "name": "Reggio nell'Emilia",
         "comunes": [
           {
             "name": "Albinea",
@@ -8721,7 +8721,7 @@
         ]
       },
       {
-        "name": "Roma Capitale",
+        "name": "Roma",
         "comunes": [
           {
             "name": "Affile",
@@ -22129,7 +22129,7 @@
         ]
       },
       {
-        "name": "Verbano Cusio Ossola",
+        "name": "Verbano-Cusio-Ossola",
         "comunes": [
           {
             "name": "Antrona Schieranco",
@@ -25546,7 +25546,7 @@
         ]
       },
       {
-        "name": "Libero Consorzio Comunale di Caltanissetta",
+        "name": "Caltanissetta",
         "comunes": [
           {
             "name": "Acquaviva Platani",
@@ -25876,7 +25876,7 @@
         ]
       },
       {
-        "name": "Libero Consorzio Comunale di Enna",
+        "name": "Enna",
         "comunes": [
           {
             "name": "Agira",
@@ -26731,7 +26731,7 @@
         ]
       },
       {
-        "name": "Libero Consorzio Comunale di Ragusa",
+        "name": "Ragusa",
         "comunes": [
           {
             "name": "Acate",
@@ -26784,7 +26784,7 @@
         ]
       },
       {
-        "name": "Libero Consorzio Comunale di Siracusa",
+        "name": "Siracusa",
         "comunes": [
           {
             "name": "Augusta",
@@ -26873,7 +26873,7 @@
         ]
       },
       {
-        "name": "Libero Consorzio Comunale di Trapani",
+        "name": "Trapani",
         "comunes": [
           {
             "name": "Alcamo",
@@ -28130,7 +28130,7 @@
     "name": "Trentino-Alto Adige",
     "provinces": [
       {
-        "name": "Bolzano",
+        "name": "Bolzano/Bozen",
         "comunes": [
           {
             "name": "Aldino",
