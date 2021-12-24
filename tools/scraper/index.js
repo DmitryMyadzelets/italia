@@ -78,9 +78,10 @@ async function getComunes(province) {
 }
 
 const regions = await getCodes(path, classed('vm'))
-// regions = regions.filter(region => region.name == 'Sardegna')
 await Promise.all(regions.map(getProvinces))
+// The below may trigger Anti DOS protection...
 //await Promise.all(regions.map(({ provinces }) => Promise.all(provinces.map(getComunes))))
+// ... so we make it sequentially:
 await (async () => {
   for (let region of regions) {
     for (let province of region.provinces) {
