@@ -1,0 +1,308 @@
+[
+  {
+    "name": "Valle d'Aosta/Vallée d'Aoste",
+    "provinces": [
+      {
+        "name": "Valle d'Aosta/Vallée d'Aoste",
+        "comunes": [
+          {
+            "name": "Aosta",
+            "codes": "11100"
+          },
+          {
+            "name": "Sarre",
+            "codes": "11010"
+          },
+          {
+            "name": "Saint-Vincent",
+            "codes": "11027"
+          },
+          {
+            "name": "Châtillon",
+            "codes": "11024"
+          },
+          {
+            "name": "Quart",
+            "codes": "11020"
+          },
+          {
+            "name": "Pont-Saint-Martin",
+            "codes": "11026"
+          },
+          {
+            "name": "Saint-Christophe",
+            "codes": "11020"
+          },
+          {
+            "name": "Gressan",
+            "codes": "11020"
+          },
+          {
+            "name": "Saint-Pierre",
+            "codes": "11010"
+          },
+          {
+            "name": "Nus",
+            "codes": "11020"
+          },
+          {
+            "name": "Courmayeur",
+            "codes": "11013"
+          },
+          {
+            "name": "Verrès",
+            "codes": "11029"
+          },
+          {
+            "name": "Donnas",
+            "codes": "11020"
+          },
+          {
+            "name": "Charvensod",
+            "codes": "11020"
+          },
+          {
+            "name": "Valtournenche",
+            "codes": "11028"
+          },
+          {
+            "name": "Aymavilles",
+            "codes": "11010"
+          },
+          {
+            "name": "Morgex",
+            "codes": "11017"
+          },
+          {
+            "name": "La Salle",
+            "codes": "11015"
+          },
+          {
+            "name": "Fénis",
+            "codes": "11020"
+          },
+          {
+            "name": "Montjovet",
+            "codes": "11020"
+          },
+          {
+            "name": "Gignod",
+            "codes": "11010"
+          },
+          {
+            "name": "Pollein",
+            "codes": "11020"
+          },
+          {
+            "name": "Ayas",
+            "codes": "11020"
+          },
+          {
+            "name": "Issogne",
+            "codes": "11020"
+          },
+          {
+            "name": "Cogne",
+            "codes": "11012"
+          },
+          {
+            "name": "Saint-Marcel",
+            "codes": "11020"
+          },
+          {
+            "name": "Verrayes",
+            "codes": "11020"
+          },
+          {
+            "name": "Villeneuve",
+            "codes": "11018"
+          },
+          {
+            "name": "Arnad",
+            "codes": "11020"
+          },
+          {
+            "name": "Hône",
+            "codes": "11020"
+          },
+          {
+            "name": "Roisan",
+            "codes": "11010"
+          },
+          {
+            "name": "Pré-Saint-Didier",
+            "codes": "11010"
+          },
+          {
+            "name": "Brissogne",
+            "codes": "11020"
+          },
+          {
+            "name": "Chambave",
+            "codes": "11023"
+          },
+          {
+            "name": "Brusson",
+            "codes": "11022"
+          },
+          {
+            "name": "Arvier",
+            "codes": "11011"
+          },
+          {
+            "name": "La Thuile",
+            "codes": "11016"
+          },
+          {
+            "name": "Gressoney-Saint-Jean",
+            "codes": "11025"
+          },
+          {
+            "name": "Pontey",
+            "codes": "11024"
+          },
+          {
+            "name": "Challand-Saint-Anselme",
+            "codes": "11020"
+          },
+          {
+            "name": "Jovençan",
+            "codes": "11020"
+          },
+          {
+            "name": "Champdepraz",
+            "codes": "11020"
+          },
+          {
+            "name": "Introd",
+            "codes": "11010"
+          },
+          {
+            "name": "Valpelline",
+            "codes": "11010"
+          },
+          {
+            "name": "Torgnon",
+            "codes": "11020"
+          },
+          {
+            "name": "Antey-Saint-André",
+            "codes": "11020"
+          },
+          {
+            "name": "Challand-Saint-Victor",
+            "codes": "11020"
+          },
+          {
+            "name": "Doues",
+            "codes": "11010"
+          },
+          {
+            "name": "Etroubles",
+            "codes": "11014"
+          },
+          {
+            "name": "Perloz",
+            "codes": "11020"
+          },
+          {
+            "name": "Lillianes",
+            "codes": "11020"
+          },
+          {
+            "name": "Gaby",
+            "codes": "11020"
+          },
+          {
+            "name": "Fontainemore",
+            "codes": "11020"
+          },
+          {
+            "name": "Issime",
+            "codes": "11020"
+          },
+          {
+            "name": "Champorcher",
+            "codes": "11020"
+          },
+          {
+            "name": "Saint-Denis",
+            "codes": "11023"
+          },
+          {
+            "name": "Saint-Rhémy-en-Bosses",
+            "codes": "11010"
+          },
+          {
+            "name": "Gressoney-La-Trinité",
+            "codes": "11020"
+          },
+          {
+            "name": "Saint-Nicolas",
+            "codes": "11010"
+          },
+          {
+            "name": "Avise",
+            "codes": "11010"
+          },
+          {
+            "name": "Emarèse",
+            "codes": "11020"
+          },
+          {
+            "name": "Bionaz",
+            "codes": "11010"
+          },
+          {
+            "name": "Oyace",
+            "codes": "11010"
+          },
+          {
+            "name": "Allein",
+            "codes": "11010"
+          },
+          {
+            "name": "Saint-Oyen",
+            "codes": "11014"
+          },
+          {
+            "name": "Valgrisenche",
+            "codes": "11010"
+          },
+          {
+            "name": "Rhêmes-Saint-Georges",
+            "codes": "11010"
+          },
+          {
+            "name": "Pontboset",
+            "codes": "11020"
+          },
+          {
+            "name": "Valsavarenche",
+            "codes": "11010"
+          },
+          {
+            "name": "Ollomont",
+            "codes": "11010"
+          },
+          {
+            "name": "Bard",
+            "codes": "11020"
+          },
+          {
+            "name": "La Magdeleine",
+            "codes": "11020"
+          },
+          {
+            "name": "Chamois",
+            "codes": "11020"
+          },
+          {
+            "name": "Rhêmes-Notre-Dame",
+            "codes": "11010"
+          }
+        ]
+      }
+    ]
+  }
+]
