@@ -9,6 +9,7 @@ import stats from './stats.js'
 // Check if the value in array is unique
 const unique = (v, i, a) => a.indexOf(v) == i
 // Sorting by name function
+const byName = (a, b) => a.name.localeCompare(b.name)
 const asStrings = (a, b) => a.localeCompare(b)
 const name = ({ name }) => name
 
@@ -39,54 +40,21 @@ equal(provinces.length, stat.total.provinces)
 // Report
 console.log('Statistics:', stat)
 
-// Postcodes, year 2016
-//
-const codes2016 = await load(json('postcodes-2016.json'))
-link(codes2016)
-// Statistics should be equal
-// equal(stats(codes2016), stat) // It's not equal! 8143 vs 7904
-
 // Postcodes, year 2021
 //
-const codes2021 = await load(json('postcodes-2021.json'))
+const codes2021 = await load(json('postcodes.json'))
 link(codes2021)
-// Add missing province
-;(regions => {
-  const missing = 'Valle d\'Aosta/Vallée d\'Aoste'
-  const region = regions.find(({ name }) => name == missing)
-  equal(typeof region, 'object')
-  region.provinces.push({ name: missing, comunes: [] })
-})(codes2021)
 // Statistics should be equal
-equal(stats(codes2021), stat) // It's not. Less even provinces
+ equal(stats(codes2021), stat)
+// Names of regions are equal
+regions.forEach((name, i) => equal(codes2021[i].name, name))
 
-const getProvinces = region => region.provinces
-const provinces2021 = codes2021
-  .map(getProvinces)
-  .reduce((arr, v) => arr.push(...v) && arr, [])
-  .map(name)
-  .sort(asStrings)
-
-provinces2021.sort(asStrings)
-// Iterate over the largest array
-provinces.forEach((name, i) => equal(provinces2021[i], name))
-// 
-
-// codes.json - provinces
-;(() => {
-  // Add new regions
-  const sardegna = codes.find(region => region.name == 'Sardegna')
-  sardegna.provinces.push({ name: 'Sud Sardegna', comunes: [] })
-  // Remove  suppressed provinces
-  const suppressed = ['Carbonia-Iglesias', 'Medio Campidano', 'Ogliastra', 'Olbia-Tempio']
-  sardegna.provinces = sardegna.provinces.filter(({ name }) => suppressed.indexOf(name) < 0)
-  // Make array of provinces' names
-  const names = codes
-    .map(({ provinces })=> provinces.map(name))
-    .reduce((arr, names) => arr.push(...names) && arr, [])
-    .sort(byName)
-  // Names of provinces is equal
-  provinces.forEach((name, i) => equal(name, names[i]))
-  // Amount of provinces is the same
-  equal(provinces.length, names.length)
-})
+// Names of provinces and comunes are equal
+italy.forEach((region, i) => region.provinces.forEach((province, j) => {
+  equal(codes2021[i].provinces[j].name, province.name)
+  province.comunes.forEach((comune, k) => {
+    const c = codes2021[i].provinces[j].comunes[k]
+    equal(c.name, comune.name)
+    equal(c.codes.length >= 5, true)
+  })
+}))
