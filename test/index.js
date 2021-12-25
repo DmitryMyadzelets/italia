@@ -39,6 +39,11 @@ equal(regions.length, stat.total.regions)
 equal(provinces.length, stat.total.provinces)
 // Report
 console.log('Statistics:', stat)
+// The ids of the comunes are unique
+equal(italy
+  .reduce((arr, region) => arr.push(...region.comunes) && arr, [])
+  .map(comune => comune.id)
+  .every(unique), true)
 
 // Postcodes
 //
