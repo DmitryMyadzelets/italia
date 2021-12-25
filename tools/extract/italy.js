@@ -15,7 +15,8 @@ const namesTree = data => data.reduce((italy, o) => {
   const province = o[keys.province]
   const comune = o[keys.comune]
 
-  child(child(child(italy, region), province), comune)
+  const item = child(child(child(italy, region), province), comune)
+  item.id = o[keys.cadastralCode]
 
   return italy
 }, {})
@@ -34,7 +35,9 @@ regions.forEach(region => {
   region.provinces = provinces
 
   provinces.forEach(province => {
-    const comunes = convert(Object.keys(names[region.name][province.name]))
+    const obj = names[region.name][province.name]
+    const comunes = convert(Object.keys(obj))
+    comunes.forEach(comune => Object.assign(comune, obj[comune.name]))
     province.comunes = comunes
   })
 })
