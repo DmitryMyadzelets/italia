@@ -9,8 +9,8 @@ import stats from './stats.js'
 // Check if the value in array is unique
 const unique = (v, i, a) => a.indexOf(v) == i
 // Sorting by name function
-const byName = (a, b) => a.name.localeCompare(b.name)
 const asStrings = (a, b) => a.localeCompare(b)
+const byName = (a, b) => asStrings(a.name, b.name)
 const name = ({ name }) => name
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -40,20 +40,20 @@ equal(provinces.length, stat.total.provinces)
 // Report
 console.log('Statistics:', stat)
 
-// Postcodes, year 2021
+// Postcodes
 //
-const codes2021 = await load(json('postcodes.json'))
-link(codes2021)
+const codes = await load(json('postcodes.json'))
+link(codes)
 // Statistics should be equal
- equal(stats(codes2021), stat)
+equal(stats(codes), stat)
 // Names of regions are equal
-regions.forEach((name, i) => equal(codes2021[i].name, name))
+regions.forEach((name, i) => equal(codes[i].name, name))
 
 // Names of provinces and comunes are equal
 italy.forEach((region, i) => region.provinces.forEach((province, j) => {
-  equal(codes2021[i].provinces[j].name, province.name)
+  equal(codes[i].provinces[j].name, province.name)
   province.comunes.forEach((comune, k) => {
-    const c = codes2021[i].provinces[j].comunes[k]
+    const c = codes[i].provinces[j].comunes[k]
     equal(c.name, comune.name)
     equal(c.codes.length >= 5, true)
   })
