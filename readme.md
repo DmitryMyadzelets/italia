@@ -1,7 +1,7 @@
 # Italy - Administrative Structure
 [Italstat](https://www.istat.it/) - Unità amministrative territoriali: comuni, città metropolitane, province e regioni
 
-The latest data from June 30, 2021.
+The latest data from December 30, 2021.
 
 ## Intro
 Italy is subdivided into regions. Each region is subdivided into provinces and
@@ -30,7 +30,6 @@ the `csv/data.csv` file. Then you can run the commands:
 * `node tools/extract/regions` - Extract regions' names as JSON
 * `node tools/extract/provinces` - Extract provinces' names as JSON
 * `node tools/extract/italy` - Extract names of regions, provinces and comunes as JSON
-* `node tools/scraper` - Web scraper for postal codes
 
 ## Extracted data
 * `json/regions` - Regions' names
@@ -44,11 +43,14 @@ Edit the code, create your own tool and get data you need!
 The original data were downloaded [from
 Istat](https://www.istat.it/it/archivio/6789) as a [zip file](https://www.istat.it/storage/codici-unita-amministrative/Elenco-codici-statistici-e-denominazioni-delle-unita-territoriali.zip). It contains `xls` and `csv` versions of the data. We use `csv` as a source. 
 
-Notes:
+Notes about Istat:
 * The source file may have `cp1252` encoding. You can convert it to
 `utf8` on Linux: `iconv -f cp1252 -t utf8 source > destination`.
 * There are strings containing the new line character `\n`. Some programs delete it when export `xls` file to `csv`. It may affect the keys in JSON objects.
 
+The postcodes are collected from different public sources, and merged to
+a single file. The names of administrative entities in the file are equal to the ones used
+by Istat.
 
 ### What's in the data? 
 The `data.json` file contains all the data from the source. It's an one-dimensional array of objects as e.g.:
