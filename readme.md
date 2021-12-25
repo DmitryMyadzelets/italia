@@ -39,7 +39,7 @@ the `csv/data.csv` file. Then you can run the commands:
 
 Edit the code, create your own tool and get data you need!
 
-## Data Source
+## Data Sources
 The original data were downloaded [from
 Istat](https://www.istat.it/it/archivio/6789) as a [zip file](https://www.istat.it/storage/codici-unita-amministrative/Elenco-codici-statistici-e-denominazioni-delle-unita-territoriali.zip). It contains `xls` and `csv` versions of the data. We use `csv` as a source. 
 
@@ -51,6 +51,9 @@ Notes about Istat:
 The postcodes are collected from different public sources, and merged to
 a single file. The names of administrative entities in the file are equal to the ones used
 by Istat.
+
+Other data sources:
+* [nonsoloCAP](https://www.nonsolocap.it/)
 
 ### What's in the data? 
 The `data.json` file contains all the data from the source. It's an one-dimensional array of objects as e.g.:
@@ -86,4 +89,11 @@ The `data.json` file contains all the data from the source. It's an one-dimensio
 ```
 
 Notes:
-* Some complicated names of regions are esteblished in the [Constiution, article 116](https://www.senato.it/istituzione/la-costituzione/parte-ii/titolo-v/articolo-116).
+* Some complicated names of regions are established in the [Constiution, article 116](https://www.senato.it/istituzione/la-costituzione/parte-ii/titolo-v/articolo-116).
+* Names of entities may vary even in official documents. So it's better to use
+  the codes assigned to them.
+* The "Codice Istat" i.e. "Codice Comune" changes when a comune passes from one
+  province to another, so it can't be used to compare data from different time periods.
+* The "[Codice Catastale](https://it.wikipedia.org/wiki/Codice_catastale)"
+  seems to be the most appropiate thing to be used as an unique id for the comunes. 
+
