@@ -96,15 +96,6 @@ await (async () => {
   }
 })()
 
-// Remove unnecessary words in names
-;(() => {
-  const fix = province => province.name = province.name
-    .replace('Città Metropolitana di ', '')
-    .replace('Provincia di ', '')
-    .replace('Provincia del ', '')
-  regions.forEach(region => region.provinces.forEach(fix))
-})()
-
 // Fix names in upper case only
 ;(() => {
   const fixName = name => name
