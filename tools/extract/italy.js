@@ -33,12 +33,18 @@ data.forEach(o => {
   if (!province.comunes[comune.id]) { province.comunes[comune.id] = comune }
 })
 
+// Sorting helpers
+const asStrings = (a, b) => a.localeCompare(b)
+const byName = (a, b) => asStrings(a.name, b.name)
+
 // Convert objects to arrays for JSON
-const italy = Object.values(regions)
+const italy = Object.values(regions).sort(byName)
 
 italy.forEach(region => {
-  region.provinces = Object.values(region.provinces)
-  region.provinces.forEach(province => province.comunes = Object.values(province.comunes))
+  region.provinces = Object.values(region.provinces).sort(byName)
+  region.provinces.forEach(province => {
+    province.comunes = Object.values(province.comunes).sort(byName)
+  })
 })
 
 console.log(JSON.stringify(italy, null, 2))
