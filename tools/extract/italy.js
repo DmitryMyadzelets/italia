@@ -6,40 +6,39 @@ import keys from './config.js'
 const fname = resolve(dirname(fileURLToPath(import.meta.url)), '../../json/data.json')
 const data = await load(fname)
 
-// Firstly we build a tree of names in one pass
+const regions = {}
+const provinces = {}
+const comunes = {}
 
-const child = (parent, key) => parent[key] || (parent[key] = {})
+// Puts an object with given key to the distance object if it doesn't exist
+const put = (dst, key, obj = {}) => dst[key] || (dst[key] = obj)
 
-const namesTree = data => data.reduce((italy, o) => {
-  const region = o[keys.region]
-  const province = o[keys.province]
-  const comune = o[keys.comune]
+// Traverse all the source data in one pass and extract data
+data.forEach(o => {
+  let id, name
 
-  const item = child(child(child(italy, region), province), comune)
-  item.id = o[keys.cadastralCode]
+  id = o[keys.regionId]
+  name = o[keys.regionName]
+  const region = put(regions, id, { id, name, provinces: {} })
 
-  return italy
-}, {})
+  id = o[keys.provinceId]
+  name = o[keys.provinceName]
+  const province = put(provinces, id, { id, name, comunes: {} })
 
-const names = namesTree(data)
+  id = o[keys.comuneId]
+  name = o[keys.comuneName]
+  const comune = put(comunes, id, { id, name/*, region, province*/ })
 
-// Convert the names tree to arrays of objects
-
-const compare = (a, b) => a.localeCompare(b)
-const convert = arr => arr.sort(compare).map(name => ({ name }))
-
-const regions = convert(Object.keys(names))
-
-regions.forEach(region => {
-  const provinces = convert(Object.keys(names[region.name]))
-  region.provinces = provinces
-
-  provinces.forEach(province => {
-    const obj = names[region.name][province.name]
-    const comunes = convert(Object.keys(obj))
-    comunes.forEach(comune => Object.assign(comune, obj[comune.name]))
-    province.comunes = comunes
-  })
+  if (!region.provinces[province.id]) { region.provinces[province.id] = province }
+  if (!province.comunes[comune.id]) { province.comunes[comune.id] = comune }
 })
 
-console.log(JSON.stringify(regions, null, 2))
+// Convert objects to arrays for JSON
+const italy = Object.values(regions)
+
+italy.forEach(region => {
+  region.provinces = Object.values(region.provinces)
+  region.provinces.forEach(province => province.comunes = Object.values(province.comunes))
+})
+
+console.log(JSON.stringify(italy, null, 2))
