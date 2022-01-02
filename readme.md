@@ -34,8 +34,14 @@ the `csv/data.csv` file. Then you can run the commands:
 ## Extracted data
 * `json/regions` - Regions' names
 * `json/provinces` - Both provinces' and metropolises' names
-* `json/italy` - Names of the regions, provinces and comunes
+* `json/italy` - Tree-like structure of regions, provinces and comunes
 * `json/postcodes` - Postal codes (CAP)
+
+The `json/italy` file includes ids for each administrative entity. The ids make
+sence when you organize data from different sources which may have different
+names for same entities. We use cadastral code for the comunes, two-letter
+abbreviation for the provinces and origianal numeric codes for the regions as
+ids.
 
 Edit the code, create your own tool and get data you need!
 
