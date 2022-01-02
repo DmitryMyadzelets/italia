@@ -24,13 +24,12 @@ data.forEach(o => {
   id = o[keys.provinceId]
   name = o[keys.provinceName]
   const province = put(provinces, id, { id, name, comunes: {} })
+  put(region.provinces, id, province)
 
   id = o[keys.comuneId]
   name = o[keys.comuneName]
   const comune = put(comunes, id, { id, name/*, region, province*/ })
-
-  if (!region.provinces[province.id]) { region.provinces[province.id] = province }
-  if (!province.comunes[comune.id]) { province.comunes[comune.id] = comune }
+  put(province.comunes, id, comune)
 })
 
 // Sorting helpers
