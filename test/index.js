@@ -63,3 +63,26 @@ italy.forEach((region, i) => region.provinces.forEach((province, j) => {
     equal(c.codes.length >= 5, true)
   })
 }))
+
+// Get comunes by postcode
+const n = Object.entries(codes
+  .reduce((arr, region) => arr.push(...region.comunes) && arr, [])
+  .reduce((o, comune) => {
+    const key = comune.codes
+    if (o[key]) {
+      o[key].push(comune)
+    } else {
+      o[key] = [comune]
+    }
+    return o
+  } , {}))
+
+// Convert strings to array of numbers
+n.forEach(arr => arr[0] = arr[0].split(' ').map(Number).filter(Number))
+n.sort((a, b)=> a[0][0] - b[0][0])
+
+const inRange = (v, [a, b]) => b ?  b >= v && v >= a : v === a
+// Returns an array of comunes with given poscode, or undefined
+const comunesBy = code => (n.find(([codes]) => inRange(code, codes)) || [])[1]
+
+equal(comunesBy(40122), [{name: 'Bologna', codes: '40121 - 40141'}])

@@ -11,7 +11,7 @@ const provinces = {}
 const comunes = {}
 
 // Puts an object with given key to the distance object if it doesn't exist
-const put = (dst, key, obj = {}) => dst[key] || (dst[key] = obj)
+const put = (obj, key, val = {}) => obj[key] || (obj[key] = val)
 
 // Traverse all the source data in one pass and extract data
 data.forEach(o => {
