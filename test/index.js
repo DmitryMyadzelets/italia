@@ -16,15 +16,6 @@ const name = ({ name }) => name
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 const json = fname => path.resolve(dirname, '../json', fname)
 
-// Load reference data
-// Note: The names of regions are assumed to be sorted
-const regions = await load(json('regions.json'))
-const provinces = await load(json('provinces.json'))
-equal(true, regions.length > 0)
-equal(true, provinces.length > 0)
-equal(true, regions.every(unique))
-equal(true, provinces.every(unique))
-
 // italy.json
 //
 const italy = await load(json('italy.json'))
@@ -33,11 +24,8 @@ link(italy)
 italy.forEach(region => equal(region.comunes.map(name).every(unique), true))
 // Names of comunes aren't unique across italy
 equal(italy.reduce((arr, { comunes }) => arr.push(...comunes) && arr, []).map(name).every(unique), false)
-// Count the entities
-const stat = stats(italy)
-equal(regions.length, stat.total.regions)
-equal(provinces.length, stat.total.provinces)
 // Report
+const stat = stats(italy)
 console.log('Statistics:', stat)
 // The ids of the comunes are unique
 equal(italy
@@ -51,19 +39,20 @@ const codes = await load(json('postcodes.json'))
 link(codes)
 // Statistics should be equal
 equal(stats(codes), stat)
-// Names of regions are equal
-regions.forEach((name, i) => equal(codes[i].name, name))
-
 // Names of provinces and comunes are equal
-italy.forEach((region, i) => region.provinces.forEach((province, j) => {
-  equal(codes[i].provinces[j].name, province.name)
-  province.comunes.forEach((comune, k) => {
-    const c = codes[i].provinces[j].comunes[k]
-    equal(c.name, comune.name)
-    equal(c.codes.length >= 5, true)
-  })
-}))
+italy.forEach((region, i) => {
+  equal(region.name, codes[i].name)
 
+  region.provinces.forEach((province, j) => {
+    equal(codes[i].provinces[j].name, province.name)
+
+    province.comunes.forEach((comune, k) => {
+      const c = codes[i].provinces[j].comunes[k]
+      equal(c.name, comune.name)
+      equal(c.codes.length >= 5, true)
+    })
+  })
+})
 // Get comunes by postcode
 const n = Object.entries(codes
   .reduce((arr, region) => arr.push(...region.comunes) && arr, [])
