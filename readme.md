@@ -27,13 +27,9 @@ create tools to extract some usefull information in `JSON` format from the sourc
 Assume you have downloaded `zip` file, then extracted and (optionally) decoded `csv` file to
 the `csv/data.csv` file. Then you can run the commands:
 * `node tools/convert` - Convert `csv/data.csv` file to `json/data.json`
-* `node tools/extract/regions` - Extract regions' names as JSON
-* `node tools/extract/provinces` - Extract provinces' names as JSON
 * `node tools/extract/italy` - Extract names of regions, provinces and comunes as JSON
 
 ## Extracted data
-* `json/regions` - Regions' names
-* `json/provinces` - Both provinces' and metropolises' names
 * `json/italy` - Tree-like structure of regions, provinces and comunes
 * `json/postcodes` - Postal codes (CAP)
 
