@@ -19,16 +19,16 @@ data.forEach(o => {
 
   id = o[keys.regionId]
   name = o[keys.regionName]
-  const region = put(regions, id, { id, name, provinces: {} })
+  const region = put(regions, id, { name, provinces: {} })
 
   id = o[keys.provinceId]
   name = o[keys.provinceName]
-  const province = put(provinces, id, { id, name, comunes: {} })
+  const province = put(provinces, id, { name, comunes: {} })
   put(region.provinces, id, province)
 
   id = o[keys.comuneId]
   name = o[keys.comuneName]
-  const comune = put(comunes, id, { id, name/*, region, province*/ })
+  const comune = put(comunes, id, { name/*, region, province*/ })
   put(province.comunes, id, comune)
 })
 
@@ -37,13 +37,17 @@ const asStrings = (a, b) => a.localeCompare(b)
 const byName = (a, b) => asStrings(a.name, b.name)
 
 // Convert objects to arrays for JSON
-const italy = Object.values(regions).sort(byName)
+function convert (regions) {
+  const toObject = ([id, obj]) => Object.assign({ id }, obj)
+  const toArray = obj => Object.entries(obj).map(toObject).sort(byName)
 
-italy.forEach(region => {
-  region.provinces = Object.values(region.provinces).sort(byName)
-  region.provinces.forEach(province => {
-    province.comunes = Object.values(province.comunes).sort(byName)
+  const italy = toArray(regions)
+  italy.forEach(region => {
+    region.provinces = toArray(region.provinces)
+    region.provinces.forEach(province => province.comunes = toArray(province.comunes))
   })
-})
+  return italy
+}
 
+const italy = convert(regions)
 console.log(JSON.stringify(italy, null, 2))
