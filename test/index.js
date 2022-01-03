@@ -41,7 +41,7 @@ link(codes)
 equal(stats(codes), stat)
 // Names of provinces and comunes are equal
 italy.forEach((region, i) => {
-  equal(region.name, codes[i].name)
+  equal(codes[i].name, region.name)
 
   region.provinces.forEach((province, j) => {
     equal(codes[i].provinces[j].name, province.name)
