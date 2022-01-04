@@ -4,6 +4,7 @@ import path from 'path'
 import load from '../tools/load.js'
 import link from './link.js'
 import stats from './stats.js'
+import lookup from './lookup.js'
 
 // Helpers:
 // Check if the value in array is unique
@@ -49,29 +50,15 @@ italy.forEach((region, i) => {
     province.comunes.forEach((comune, k) => {
       const c = codes[i].provinces[j].comunes[k]
       equal(c.name, comune.name)
-      equal(c.codes.length >= 5, true)
+      equal(c.codes.length > 0, true)
     })
   })
 })
-// Get comunes by postcode
-const n = Object.entries(codes
-  .reduce((arr, region) => arr.push(...region.comunes) && arr, [])
-  .reduce((o, comune) => {
-    const key = comune.codes
-    if (o[key]) {
-      o[key].push(comune)
-    } else {
-      o[key] = [comune]
-    }
-    return o
-  } , {}))
 
-// Convert strings to array of numbers
-n.forEach(arr => arr[0] = arr[0].split(' ').map(Number).filter(Number))
-n.sort((a, b)=> a[0][0] - b[0][0])
-
-const inRange = (v, [a, b]) => b ?  b >= v && v >= a : v === a
-// Returns an array of comunes with given poscode, or undefined
-const comunesBy = code => (n.find(([codes]) => inRange(code, codes)) || [])[1]
-
-equal(comunesBy(40122), [{name: 'Bologna', codes: '40121 - 40141'}])
+const merged = await load(json('merged.json'))
+// 
+equal(lookup(merged)(40122), [{
+  name: 'Bologna',
+  id: 'A944',
+  codes: [40121, 40141]
+}])
