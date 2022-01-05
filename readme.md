@@ -55,6 +55,7 @@ a single file. The names of administrative entities in the file are equal to the
 by Istat.
 
 Other data sources:
+* [Poste Italiane](https://www.poste.it/cap.html)
 * [nonsoloCAP](https://www.nonsolocap.it/)
 
 ### What's in the data? 
