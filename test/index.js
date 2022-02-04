@@ -63,3 +63,14 @@ equal(lookup(merged)(40122), [{
   id: 'A944',
   codes: [40121, 40141]
 }])
+
+// Validate JSON schemas
+merged.forEach(region => {
+  validate.region(region)
+  region.provinces.forEach(province => {
+    validate.province(province)
+    province.comunes.forEach(comune => {
+      validate.comune(comune)
+    })
+  })
+})

@@ -10,13 +10,13 @@ const schema = fname => resolve(currentDir, './schemas/', fname)
 const schemas = {
   region: await load(schema('region.json')),
   province: await load(schema('province.json')),
-  commune: await load(schema('commune.json'))
+  comune: await load(schema('comune.json'))
 }
 
 const validate = {
   region: matchesSchema(schemas.region),
   province: matchesSchema(schemas.province),
-  commune: matchesSchema(schemas.commune)
+  comune: matchesSchema(schemas.comune)
 }
 
 export default validate
