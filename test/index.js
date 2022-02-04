@@ -5,6 +5,7 @@ import load from '../tools/load.js'
 import link from './link.js'
 import stats from './stats.js'
 import lookup from './lookup.js'
+import validate from './validate.js'
 
 // Helpers:
 // Check if the value in array is unique
