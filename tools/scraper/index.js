@@ -29,7 +29,7 @@ const classed = className => e => e.attribs.class && e.attribs.class.includes(cl
 const id = s => e => e.attribs.id == s
 
 // Returns array of administrative divisions for the given entity
-async function getDivisions(path, tableClass) {
+async function getParts(path, tableClass) {
   const data = []
 
   let page = await get(host, path)
@@ -69,16 +69,16 @@ async function getCap(comune) {
 }
 
 async function getProvinces(region) {
-  const provinces = await getDivisions(region.path, classed('ut'))
+  const provinces = await getParts(region.path, classed('ut'))
   region.provinces = provinces
 }
 
 async function getComunes(province) {
-  const comunes = await getDivisions(province.path, classed('at'))
+  const comunes = await getParts(province.path, classed('at'))
   province.comunes = comunes
 }
 
-const regions = await getDivisions(path, classed('vm'))
+const regions = await getParts(path, classed('vm'))
 await Promise.all(regions.map(getProvinces))
 // The below may trigger Anti DOS protection...
 //await Promise.all(regions.map(({ provinces }) => Promise.all(provinces.map(getComunes))))
