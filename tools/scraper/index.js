@@ -10,7 +10,7 @@ import config from './.config.js'
 const { host, path } = config
 
 const get = cached({
-  debug: false,
+  debug: true,
   tout: true,
   dir: resolve(dirname(fileURLToPath(import.meta.url)), './.cache')
 })
@@ -28,7 +28,8 @@ const classed = className => e => e.attribs.class && e.attribs.class.includes(cl
 // Returns true if the element has givin id
 const id = s => e => e.attribs.id == s
 
-async function getCodes(path, tableClass) {
+// Returns array of administrative divisions for the given entity
+async function getDivisions(path, tableClass) {
   const data = []
 
   let page = await get(host, path)
@@ -68,16 +69,16 @@ async function getCap(comune) {
 }
 
 async function getProvinces(region) {
-  const provinces = await getCodes(region.path, classed('ut'))
+  const provinces = await getDivisions(region.path, classed('ut'))
   region.provinces = provinces
 }
 
 async function getComunes(province) {
-  const comunes = await getCodes(province.path, classed('at'))
+  const comunes = await getDivisions(province.path, classed('at'))
   province.comunes = comunes
 }
 
-const regions = await getCodes(path, classed('vm'))
+const regions = await getDivisions(path, classed('vm'))
 await Promise.all(regions.map(getProvinces))
 // The below may trigger Anti DOS protection...
 //await Promise.all(regions.map(({ provinces }) => Promise.all(provinces.map(getComunes))))
