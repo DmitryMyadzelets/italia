@@ -83,7 +83,7 @@ function getEntityInfo(page) {
   const tables = select('table', page).filter(classed('uj'))
   const trs = select('tr', tables)
     .map(tr => select('td', tr))
-    .map(tds => tds.map(td => textContent(td)))
+    .map(tds => tds.map(td => textContent(skipTags(td))))
 
   return Object.fromEntries(new Map(trs))
 }
@@ -103,8 +103,9 @@ async function getComunes(province) {
 
 //debug
 /*
-const p = await getParsed('/lombardia/18-como/')
-const cc = getComuneInfo(p)
+const s = '/veneto/22-villafranca-di-verona/'
+const p = await getParsed(s)
+const cc = getEntityInfo(p)
 //const p = await getParsed('/valle-d-aosta/')
 //const cc = getEntities(p, classed('ct'))
 console.log(cc, cc['Codice catastale'], cc.CAP)
