@@ -78,34 +78,14 @@ function getProvincesList(page) {
   return data
 }
 
-// Get id of the province (Sigla) from the page
-function getProvinceId(page) {
-  const divs = select('div', page).filter(id('uj'))
-  const tables = select('table', divs).filter(classed('uj'))
-  const trs = select('tr', tables)
-    .map(tr => select('td', tr).map(td => textContent(skipTags(td))))
-    .filter(tds => tds[0] == 'Sigla')
-
-  equal(trs.length, 1)
-
-  const sigla = trs[0][1]
-  return sigla
-}
-
-async function getCap(comune) {
-  let page = await get(host, comune.path)
-  page = parse(page)
+// Returns object of the entity from the given page
+function getEntityInfo(page) {
   const tables = select('table', page).filter(classed('uj'))
-
-  const codes = select('tr', tables)
+  const trs = select('tr', tables)
     .map(tr => select('td', tr))
-    .filter(tds => tds.length >= 2)
-    .filter(tds => textContent(skipTags(tds[0])) == 'CAP')
-    .map(tds => textContent(skipTags(tds[1])))[0]
+    .map(tds => tds.map(td => textContent(td)))
 
-  equal(typeof codes, 'string')
-  equal(codes.length > 0, true)
-  comune.codes = codes
+  return Object.fromEntries(new Map(trs))
 }
 
 async function getProvinces(region) {
@@ -116,17 +96,18 @@ async function getProvinces(region) {
 
 async function getComunes(province) {
   const page = await getParsed(province.path)
-  province.id = getProvinceId(page)
+  province.id = getEntityInfo(page).Sigla
+  equal(province.id.length > 0, true)
   province.comunes = getEntities(page, classed('ct'))
 }
 
 //debug
 /*
-const p = await getParsed('/lombardia/provincia-di-como/')
-const cc = getProvinceId(p)
+const p = await getParsed('/lombardia/18-como/')
+const cc = getComuneInfo(p)
 //const p = await getParsed('/valle-d-aosta/')
 //const cc = getEntities(p, classed('ct'))
-console.log(cc)
+console.log(cc, cc['Codice catastale'], cc.CAP)
 process.exit()
 */
 //
@@ -145,7 +126,14 @@ await (async () => {
         // Comunes have relative paths, so we change path to absolute
         // Without slash it redirects to the page with slash, so we add it
         comune.path = resolve(province.path, comune.path) + '/'
-        await getCap(comune)
+        const page = await getParsed(comune.path)
+        const data = getEntityInfo(page)
+
+        comune.codes = data.CAP
+        comune.id = data['Codice catastale']
+
+        equal(comune.codes.length > 0, true)
+        equal(comune.id.length > 0, true)
       }
     }
   }
