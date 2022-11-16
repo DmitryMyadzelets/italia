@@ -28,12 +28,15 @@ const classed = className => e => e.attribs.class && e.attribs.class.includes(cl
 // Returns true if the element has givin id
 const id = s => e => e.attribs.id == s
 
-// Returns array of administrative divisions for the given entity
-async function getParts(path, tableClass) {
-  const data = []
-
+// Downloads and returns the parsed page 
+async function getParsed(path) {
   let page = await get(host, path)
-  page = parse(page)
+  return parse(page)
+}
+
+// Returns array of administrative entities from the given page 
+function getEntities(page, tableClass) {
+  const data = []
 
   const divs = select('div', page).filter(id('jk'))
   const tables = select('table', page).filter(tableClass)
@@ -69,16 +72,19 @@ async function getCap(comune) {
 }
 
 async function getProvinces(region) {
-  const provinces = await getParts(region.path, classed('ut'))
+  const page = await getParsed(region.path)
+  const provinces = getEntities(page, classed('ut'))
   region.provinces = provinces
 }
 
 async function getComunes(province) {
-  const comunes = await getParts(province.path, classed('at'))
+  const page = await getParsed(province.path)
+  const comunes = getEntities(page, classed('at'))
   province.comunes = comunes
 }
 
-const regions = await getParts(path, classed('vm'))
+const page = await getParsed(path)
+const regions = getEntities(page, classed('vm'))
 await Promise.all(regions.map(getProvinces))
 // The below may trigger Anti DOS protection...
 //await Promise.all(regions.map(({ provinces }) => Promise.all(provinces.map(getComunes))))
