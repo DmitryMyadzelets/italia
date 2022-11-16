@@ -39,13 +39,36 @@ function getEntities(page, tableClass) {
   const data = []
 
   const divs = select('div', page).filter(id('jk'))
-  const tables = select('table', page).filter(tableClass)
+  const tables = select('table', divs).filter(tableClass)
+  const table = tables[0]
 
-  select('tr', tables)
+  select('tr', table)
     .map(tr => select('td', tr))
     .filter(tds => tds.length > 0)
     .map(tds => select('a', tds[0])[0])
     .filter(a => !!a)
+    .forEach(a => {
+      const name = textContent(skipTags(a))
+      const path = a.attribs.href
+      data.push({ name, path })
+    })
+
+  return data
+}
+
+// Returns array of provinces [{name, url}] from the given page
+// Note:
+// In the region pages there are two tables of provinces. This method is more
+// reliable, as the second table is missing for some regions (see
+// https://www.tuttitalia.it/valle-d-aosta/)
+function getProvincesList(page) {
+  const data = []
+  const divs = select('div', page).filter(id('ea'))
+  const tables = select('table', divs).filter(classed('af'))
+
+  equal(tables.length, 1)
+
+  select('a', tables)
     .forEach(a => {
       const name = textContent(skipTags(a))
       const path = a.attribs.href
@@ -73,15 +96,27 @@ async function getCap(comune) {
 
 async function getProvinces(region) {
   const page = await getParsed(region.path)
-  const provinces = getEntities(page, classed('ut'))
+  const provinces = getProvincesList(page)
+  //const provinces = getEntities(page, classed('ut'))
   region.provinces = provinces
 }
 
 async function getComunes(province) {
   const page = await getParsed(province.path)
-  const comunes = getEntities(page, classed('at'))
+  const comunes = getEntities(page, classed('ct'))
   province.comunes = comunes
 }
+
+//debug
+/*
+const p = await getParsed('/valle-d-aosta/')
+const cc = getProvincesList(p)
+//const p = await getParsed('/valle-d-aosta/')
+//const cc = getEntities(p, classed('ct'))
+console.log(cc)
+process.exit()
+*/
+//
 
 const page = await getParsed(path)
 const regions = getEntities(page, classed('vm'))
