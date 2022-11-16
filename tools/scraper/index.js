@@ -78,6 +78,20 @@ function getProvincesList(page) {
   return data
 }
 
+// Get id of the province (Sigla) from the page
+function getProvinceId(page) {
+  const divs = select('div', page).filter(id('uj'))
+  const tables = select('table', divs).filter(classed('uj'))
+  const trs = select('tr', tables)
+    .map(tr => select('td', tr).map(td => textContent(skipTags(td))))
+    .filter(tds => tds[0] == 'Sigla')
+
+  equal(trs.length, 1)
+
+  const sigla = trs[0][1]
+  return sigla
+}
+
 async function getCap(comune) {
   let page = await get(host, comune.path)
   page = parse(page)
@@ -97,20 +111,19 @@ async function getCap(comune) {
 async function getProvinces(region) {
   const page = await getParsed(region.path)
   const provinces = getProvincesList(page)
-  //const provinces = getEntities(page, classed('ut'))
   region.provinces = provinces
 }
 
 async function getComunes(province) {
   const page = await getParsed(province.path)
-  const comunes = getEntities(page, classed('ct'))
-  province.comunes = comunes
+  province.id = getProvinceId(page)
+  province.comunes = getEntities(page, classed('ct'))
 }
 
 //debug
 /*
-const p = await getParsed('/valle-d-aosta/')
-const cc = getProvincesList(p)
+const p = await getParsed('/lombardia/provincia-di-como/')
+const cc = getProvinceId(p)
 //const p = await getParsed('/valle-d-aosta/')
 //const cc = getEntities(p, classed('ct'))
 console.log(cc)
