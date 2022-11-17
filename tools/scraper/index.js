@@ -10,7 +10,7 @@ import config from './.config.js'
 const { host, path } = config
 
 const get = cached({
-  debug: true,
+  debug: false,
   tout: true,
   dir: resolve(dirname(fileURLToPath(import.meta.url)), './.cache')
 })
