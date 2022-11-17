@@ -34,15 +34,12 @@ async function getParsed(path) {
   return parse(page)
 }
 
-// Returns array of administrative entities from the given page 
-function getEntities(page, tableClass) {
+function getRegionsList(page) {
   const data = []
-
   const divs = select('div', page).filter(id('jk'))
-  const tables = select('table', divs).filter(tableClass)
-  const table = tables[0]
+  const tables = select('table', divs).filter(classed('vm'))
 
-  select('tr', table)
+  select('tr', tables)
     .map(tr => select('td', tr))
     .filter(tds => tds.length > 0)
     .map(tds => select('a', tds[0])[0])
@@ -65,8 +62,6 @@ function getProvincesList(page) {
   const data = []
   const divs = select('div', page).filter(id('ea'))
   const tables = select('table', divs).filter(classed('af'))
-
-  equal(tables.length, 1)
 
   select('a', tables)
     .forEach(a => {
@@ -106,6 +101,11 @@ function getEntityInfo(page) {
   return Object.fromEntries(new Map(trs))
 }
 
+// Returns name (works for comune, region and province)
+function getEntityName(page) {
+  return textContent(select('h1', select('div', page).filter(id('es'))))
+}
+
 async function getProvinces(region) {
   const page = await getParsed(region.path)
   const provinces = getProvincesList(page)
@@ -124,15 +124,13 @@ async function getComunes(province) {
 const s = '/abruzzo/provincia-di-teramo/'
 const p = await getParsed(s)
 const cc = getComunesList(p)
-//const p = await getParsed('/valle-d-aosta/')
-//const cc = getEntities(p, classed('ct'))
 console.log(cc)
 process.exit()
 */
 //
 
 const page = await getParsed(path)
-const regions = getEntities(page, classed('vm'))
+const regions = getRegionsList(page)
 await Promise.all(regions.map(getProvinces))
 // The below may trigger Anti DOS protection...
 //await Promise.all(regions.map(({ provinces }) => Promise.all(provinces.map(getComunes))))
@@ -147,9 +145,11 @@ await (async () => {
         comune.path = resolve(province.path, comune.path) + '/'
         const page = await getParsed(comune.path)
         const data = getEntityInfo(page)
+        const name = getEntityName(page)
 
         comune.codes = data.CAP
         comune.id = data['Codice catastale']
+        comune.name = name
 
 
         equal(comune.codes.length > 0, true)
@@ -187,4 +187,4 @@ regions.forEach(region => {
   })
 })
 
-// console.log(JSON.stringify(regions, null, 2))
+console.log(JSON.stringify(regions, null, 2))
