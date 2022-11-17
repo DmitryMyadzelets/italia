@@ -35,9 +35,9 @@ equal(italy
   .map(comune => comune.id)
   .every(unique), true)
 
-// Postcodes
+// Merged with Postcodes
 //
-const codes = await load(json('postcodes.json'))
+const codes = await load(json('merged.json'))
 link(codes)
 // Statistics should be equal
 equal(stats(codes), stat)
