@@ -18,7 +18,8 @@ italy.forEach((region, i) =>
     province.comunes.forEach((comune, k) => {
       const src = codes[i].provinces[j].comunes[k]
       // Make sure we merge code from the same comune
-      equal(src.name, comune.name)
+      // equal(src.name, comune.name)
+      equal(src.id, comune.id)
       merge(comune, { codes: convert(src.codes) })
     })
   )
