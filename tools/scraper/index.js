@@ -78,6 +78,24 @@ function getProvincesList(page) {
   return data
 }
 
+function getComunesList(page) {
+  const data = []
+  const divs = select('div', page).filter(id('jk'))
+  const tables = select('table', select('table', divs)
+    .filter(classed('ct'))
+    .splice(0, 1)
+  ).filter(classed('at'))
+
+  select('a', tables)
+    .forEach(a => {
+      const name = textContent(skipTags(a))
+      const path = a.attribs.href
+      data.push({ name, path })
+    })
+
+  return data
+}
+
 // Returns object of the entity from the given page
 function getEntityInfo(page) {
   const tables = select('table', page).filter(classed('uj'))
@@ -97,18 +115,18 @@ async function getProvinces(region) {
 async function getComunes(province) {
   const page = await getParsed(province.path)
   province.id = getEntityInfo(page).Sigla
-  equal(province.id.length > 0, true)
-  province.comunes = getEntities(page, classed('ct'))
+  province.comunes = getComunesList(page)
 }
 
 //debug
 /*
-const s = '/veneto/22-villafranca-di-verona/'
+//const s = '/veneto/22-villafranca-di-verona/'
+const s = '/abruzzo/provincia-di-teramo/'
 const p = await getParsed(s)
-const cc = getEntityInfo(p)
+const cc = getComunesList(p)
 //const p = await getParsed('/valle-d-aosta/')
 //const cc = getEntities(p, classed('ct'))
-console.log(cc, cc['Codice catastale'], cc.CAP)
+console.log(cc)
 process.exit()
 */
 //
@@ -132,6 +150,7 @@ await (async () => {
 
         comune.codes = data.CAP
         comune.id = data['Codice catastale']
+
 
         equal(comune.codes.length > 0, true)
         equal(comune.id.length > 0, true)
@@ -168,4 +187,4 @@ regions.forEach(region => {
   })
 })
 
-console.log(JSON.stringify(regions, null, 2))
+// console.log(JSON.stringify(regions, null, 2))
